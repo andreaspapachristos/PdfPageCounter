@@ -111,7 +111,7 @@ public class MainFrame extends javax.swing.JFrame {
             DOMSource domSource = new DOMSource(d);
            // Source text = new StreamSource(new File("/home/master/test.xml"));
            // transformer.transform(text, new StreamResult(new File("/home/master/output.xml")));
-            StreamResult streamResult = new StreamResult(new File( System.getProperty("user.dir")+ System.getProperty("file.separator")+"pdfCounter.html"));
+            StreamResult streamResult = new StreamResult(new File( System.getProperty("user.home")+ System.getProperty("file.separator")+"pdfCounter.html"));
             transformer.transform(domSource, streamResult);
             
             }
