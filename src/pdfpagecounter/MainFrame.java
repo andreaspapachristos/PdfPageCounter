@@ -40,9 +40,12 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Save File As");
         UIManager.put("FileChooser.cancelButtonText", "Quit");
+        UIManager.put("FileChooser.fileNameLabelText", "Choosen Directory");
         initComponents();
         this.fileChooser.setApproveButtonText("process");
+        this.fileChooser.setSelectedFile(new File(this.fileChooser.getCurrentDirectory().getAbsolutePath()));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         this.fileChooser.setFileFilter(filter);
         this.exitMenuItem.addActionListener((e) -> System.exit(0));
@@ -226,6 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
                 fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
             }
             printPages();
+
             //  openInBrowser(new File(System.getProperty("user.home")+ System.getProperty("file.separator")+"test1.html"));
 
             /* { UIDefaults defaults = UIManager.getDefaults();
@@ -237,6 +241,7 @@ public class MainFrame extends javax.swing.JFrame {
         }}*/        } catch (ParserConfigurationException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_fileChooserActionPerformed
 
     /**
