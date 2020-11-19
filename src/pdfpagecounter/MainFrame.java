@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
  * @author master
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    private static final String OS = System.getProperty("os.name");
     /**
      * Creates new form MainFrame
      */
@@ -103,7 +103,8 @@ public class MainFrame extends javax.swing.JFrame {
                 pdf.appendChild(d.createTextNode(f.substring(f.lastIndexOf(System.getProperty("file.separator")) + 1)));
                 dir.appendChild(pdf);
                 Element name = d.createElement("path");
-                name.appendChild(d.createTextNode(f.substring(f.indexOf(System.getProperty("file.separator")), f.lastIndexOf(System.getProperty("file.separator")) + 1)));
+                if(OS.matches("^Win.*")) name.appendChild(d.createTextNode("file:\\" + f.substring(0, f.lastIndexOf(System.getProperty("file.separator")) + 1)));
+                else name.appendChild(d.createTextNode(f.substring(f.indexOf(System.getProperty("file.separator")), f.lastIndexOf(System.getProperty("file.separator")) + 1)));
                 dir.appendChild(name);
                 /*   Attr ar = d.createAttribute("path");
                 ar.setValue(f.substring(f.indexOf("/"), f.lastIndexOf("/")+1));
