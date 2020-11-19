@@ -164,6 +164,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         helpMenu.setText("Help");
 
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_DOWN_MASK));
         aboutMenuItem.setText("About");
         helpMenu.add(aboutMenuItem);
 
