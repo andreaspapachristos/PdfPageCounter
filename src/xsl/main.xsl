@@ -27,7 +27,7 @@
             
             <body>
                 <table class="table table-bordered table-dark">
-                    <tr bgcolor="#B0C4DE" style="font-family:sans-serif">
+                    <tr>
                         <th scope="col">#</th>
                         <th scope="col">Path</th>
                         <th scope="col">File</th>
@@ -39,12 +39,12 @@
                                 <xsl:number format="1 "/>
                             </td>  
                             <td> 
-                                <a href="{path}">
+                                <a href="{path}" style="color:white">
                                 <xsl:value-of select="path" />
                                 </a> 
                             </td>
                             <td>
-                                <a href="{concat(path,name)}"> 
+                                <a href="{concat(path,name)}" style="color:white"> 
                                 <xsl:value-of select="name" />
                                 </a> 
                             </td>
