@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -49,6 +50,11 @@ public class MainFrame extends javax.swing.JFrame {
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         this.fileChooser.setFileFilter(filter);
         this.exitMenuItem.addActionListener((e) -> System.exit(0));
+        this.aboutMenuItem.addActionListener((e)->{
+            about about = new about();
+            about.setVisible(true);
+            
+        });
     }
 
     public static void exit() {

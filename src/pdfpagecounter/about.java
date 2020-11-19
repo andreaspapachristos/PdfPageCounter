@@ -5,6 +5,10 @@
  */
 package pdfpagecounter;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JFrame;
+
 /**
  *
  * @author master
@@ -19,17 +23,21 @@ public class about extends javax.swing.JFrame {
         initComponents();
         this.jTextArea1.append("Το utility pdfpagecounter είναι μια μικρο-εφαρμογή η οποία \n" +
                                 "δοθέντος ενός καταλόγου (directory) που επιλέγει ο \n" +
-                                "χρήστης, επιστρέφει σε ένα html αρχείο, το οποίο και\n" +
-                                " ονομάζει pdfcounter.html, όλα τα pdf αρχεία που \n" +
+                                "χρήστης, επιστρέφει σε ένα html αρχείο,\n στον τοπικό σας κατάλογο **Downloads** το οποίο και\n" +
+                                " ονομάζει pdfCounter.html, όλα τα pdf αρχεία που \n" +
                                 "υπάρχουν μέσα στον κατάλογο και τους υποκαταλόγους \n" +
                                 "τους καθώς και τον αριθμό των σελίδων τους. \n" +
                                 "Η εφαρμογή είναι γραμμένη σε java και δίνεται δωρεάν.");
     
         
-        
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-        
-
+      
+    
+  
+ 
+   
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
