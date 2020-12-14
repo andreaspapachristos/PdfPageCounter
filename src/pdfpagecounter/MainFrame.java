@@ -35,7 +35,9 @@ import org.w3c.dom.Element;
  * @author master
  */
 public class MainFrame extends javax.swing.JFrame {
+
     private static final String OS = System.getProperty("os.name");
+
     /**
      * Creates new form MainFrame
      */
@@ -49,10 +51,10 @@ public class MainFrame extends javax.swing.JFrame {
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         this.fileChooser.setFileFilter(filter);
         this.exitMenuItem.addActionListener((e) -> System.exit(0));
-        this.aboutMenuItem.addActionListener((e)->{
+        this.aboutMenuItem.addActionListener((e) -> {
             about about = new about();
             about.setVisible(true);
-            
+
         });
     }
 
@@ -103,8 +105,11 @@ public class MainFrame extends javax.swing.JFrame {
                 pdf.appendChild(d.createTextNode(f.substring(f.lastIndexOf(System.getProperty("file.separator")) + 1)));
                 dir.appendChild(pdf);
                 Element name = d.createElement("path");
-                if(OS.matches("^Win.*")) name.appendChild(d.createTextNode("file:\\" + f.substring(0, f.lastIndexOf(System.getProperty("file.separator")) + 1)));
-                else name.appendChild(d.createTextNode(f.substring(f.indexOf(System.getProperty("file.separator")), f.lastIndexOf(System.getProperty("file.separator")) + 1)));
+                if (OS.matches("^Win.*")) {
+                    name.appendChild(d.createTextNode("file:\\" + f.substring(0, f.lastIndexOf(System.getProperty("file.separator")) + 1)));
+                } else {
+                    name.appendChild(d.createTextNode(f.substring(f.indexOf(System.getProperty("file.separator")), f.lastIndexOf(System.getProperty("file.separator")) + 1)));
+                }
                 dir.appendChild(name);
                 /*   Attr ar = d.createAttribute("path");
                 ar.setValue(f.substring(f.indexOf("/"), f.lastIndexOf("/")+1));
@@ -203,6 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
                 List<String> pathList = paths
                         .filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".pdf"))
+                        .filter(path -> !path.getFileName().toString().startsWith("."))
                         //.peek(System.out::println)
                         .map(p -> {
                             if (Files.isDirectory(p)) {
@@ -236,6 +242,7 @@ public class MainFrame extends javax.swing.JFrame {
                 fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
             }
             printPages();
+
 
             //  openInBrowser(new File(System.getProperty("user.home")+ System.getProperty("file.separator")+"test1.html"));
 
