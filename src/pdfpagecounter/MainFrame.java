@@ -206,6 +206,7 @@ public class MainFrame extends javax.swing.JFrame {
             {
 
                 List<String> pathList = paths
+                        .parallel()
                         .filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".pdf"))
                         .filter(path -> !path.getFileName().toString().startsWith("."))
