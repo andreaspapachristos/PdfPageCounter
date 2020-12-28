@@ -131,7 +131,9 @@ public class MainFrame extends javax.swing.JFrame {
             // transformer.transform(text, new StreamResult(new File("/home/master/output.xml")));
             StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
             transformer.transform(domSource, streamResult);
-
+            if (OS.matches("^Win.*")) {
+                openInBrowser(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
+            }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         } catch (TransformerException tfe) {
@@ -234,28 +236,32 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed
         //fileChooser.setApproveButtonText("test");
-        try {
-            String action = evt.getActionCommand();
-            if (action.equals(JFileChooser.CANCEL_SELECTION)) {
-                System.exit(0);
-            } //
-            else if (action.equals(JFileChooser.APPROVE_SELECTION)) {
-                fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
-            }
-            printPages();
-
-
-            //  openInBrowser(new File(System.getProperty("user.home")+ System.getProperty("file.separator")+"test1.html"));
-
-            /* { UIDefaults defaults = UIManager.getDefaults();
-            System.out.println(defaults.size()+ " properties");
-            for (Enumeration e = defaults.keys();
-            e.hasMoreElements();) {
-            Object key = e.nextElement();
-            System.out.println(key + " = " + defaults.get(key));
-        }}*/        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        String action = evt.getActionCommand();
+        if (action.equals(JFileChooser.CANCEL_SELECTION)) {
+            System.exit(0);
+        } //
+        else if (action.equals(JFileChooser.APPROVE_SELECTION)) {
+            fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
         }
+        Runnable runnable = ()
+                -> {
+            try {
+                printPages();
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+        //  openInBrowser(new File(System.getProperty("user.home")+ System.getProperty("file.separator")+"test1.html"));
+        /* { UIDefaults defaults = UIManager.getDefaults();
+        System.out.println(defaults.size()+ " properties");
+        for (Enumeration e = defaults.keys();
+        e.hasMoreElements();) {
+        Object key = e.nextElement();
+        System.out.println(key + " = " + defaults.get(key));
+        }}*/
 
     }//GEN-LAST:event_fileChooserActionPerformed
 
