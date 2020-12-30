@@ -34,6 +34,7 @@
                         <th scope="col">Pages</th>
                     </tr>
                     <xsl:for-each select="files/file">
+                      <!--  <xsl:sort select="path"/>-->
                         <tr scope="row">
                             <td> 
                                 <xsl:number format="1 "/>
