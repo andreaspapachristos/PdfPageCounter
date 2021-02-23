@@ -37,7 +37,8 @@ import org.w3c.dom.Element;
 public class MainFrame extends javax.swing.JFrame {
 
     private static final String OS = System.getProperty("os.name");
-
+    private boolean b = true;
+    
     /**
      * Creates new form MainFrame
      */
@@ -49,13 +50,21 @@ public class MainFrame extends javax.swing.JFrame {
         this.fileChooser.setApproveButtonText("process");
         this.fileChooser.setSelectedFile(new File(this.fileChooser.getCurrentDirectory().getAbsolutePath()));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
-        this.fileChooser.setFileFilter(filter);
+        FileFilter HtmlFilter = new FileNameExtensionFilter("HTML File", "html");
+        this.fileChooser.addChoosableFileFilter(HtmlFilter);
+        this.fileChooser.addChoosableFileFilter(filter);
+        //this.fileChooser.setFileFilter(this.fileChooser.getFileFilter());
+        this.fileChooser.setAcceptAllFileFilterUsed(false);
         this.exitMenuItem.addActionListener((e) -> System.exit(0));
         this.aboutMenuItem.addActionListener((e) -> {
             about about = new about();
             about.setVisible(true);
 
         });
+        //System.out.println(this.fileChooser.getFileFilter().getDescription());
+       
+            
+        
     }
 
     public static void exit() {
@@ -85,7 +94,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    public static void printToXml(List<String> list) throws IOException, ParserConfigurationException {
+    public static void printToXml(List<String> list, Boolean b) throws IOException, ParserConfigurationException {
         try {
 
             DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
@@ -120,11 +129,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Source xslt = new StreamSource(new File("src/xsl/main.xsl"));
-            Transformer transformer = transformerFactory.newTransformer(xslt);
+            //Transformer transformer = transformerFactory.newTransformer(xslt);
+            Transformer transformer = (b ? transformerFactory.newTransformer() : transformerFactory.newTransformer(xslt));
             DOMSource domSource = new DOMSource(d);
             // Source text = new StreamSource(new File("/home/master/test.xml"));
             // transformer.transform(text, new StreamResult(new File("/home/master/output.xml")));
-            StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
+            //StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
+            StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "test" + (b ? ".xml" : ".html")));
             transformer.transform(domSource, streamResult);
             if (OS.matches("^Win.*")) {
                 openInBrowser(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
@@ -221,7 +232,7 @@ public class MainFrame extends javax.swing.JFrame {
                             return p.toString();
                         })
                         .collect(Collectors.toList());
-                printToXml(pathList);
+                printToXml(pathList, b);
                 /*for (String f:pathList){
                         System.out.printf("%s"+")"+"%s" +"%d"+"\n",i++, f, efficientPDFPageCount(f));
                }*/
@@ -243,6 +254,9 @@ public class MainFrame extends javax.swing.JFrame {
         } //
         else if (action.equals(JFileChooser.APPROVE_SELECTION)) {
             fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
+             if (fileChooser.getFileFilter().getDescription().equals("HTML File")){
+            b = false;
+        }
         }
         Runnable runnable = ()
                 -> {
