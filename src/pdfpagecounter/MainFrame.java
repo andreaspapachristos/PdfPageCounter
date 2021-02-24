@@ -53,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         FileFilter HtmlFilter = new FileNameExtensionFilter("HTML File", "html");
         this.fileChooser.addChoosableFileFilter(HtmlFilter);
         this.fileChooser.addChoosableFileFilter(filter);
-        //this.fileChooser.setFileFilter(this.fileChooser.getFileFilter());
+        this.fileChooser.setFileFilter(filter);
         this.fileChooser.setAcceptAllFileFilterUsed(false);
         this.exitMenuItem.addActionListener((e) -> System.exit(0));
         this.aboutMenuItem.addActionListener((e) -> {
@@ -256,6 +256,7 @@ public class MainFrame extends javax.swing.JFrame {
             fileChooser.setCurrentDirectory(fileChooser.getSelectedFile().getAbsoluteFile());
              if (fileChooser.getFileFilter().getDescription().equals("HTML File")){
             b = false;
+            System.out.println(fileChooser.getFileFilter().getDescription());
         }
         }
         Runnable runnable = ()
