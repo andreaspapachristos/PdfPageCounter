@@ -137,7 +137,7 @@ public class MainFrame extends javax.swing.JFrame {
             //StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
             StreamResult streamResult = new StreamResult(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter" + (b ? ".xml" : ".html")));
             transformer.transform(domSource, streamResult);
-            if (OS.matches("^Win.*")) {
+            if (OS.matches("^Win.*") && !b) {
                 openInBrowser(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
             }
         } catch (IOException ioe) {
