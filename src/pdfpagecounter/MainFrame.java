@@ -77,7 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
             int pages = reader.getNumberOfPages();
             reader.close();
             return pages;
-        } catch (IOException e) {
+        } catch (NullPointerException  e) {
             // e.getCause().printStackTrace();
             System.out.println("Possible corrupted file:" + filePath);
         }
@@ -140,10 +140,8 @@ public class MainFrame extends javax.swing.JFrame {
             if (OS.matches("^Win.*") && !b) {
                 openInBrowser(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "pdfCounter.html"));
             }
-        } catch (IOException ioe) {
+        } catch (IOException | TransformerException ioe) {
             ioe.printStackTrace();
-        } catch (TransformerException tfe) {
-            tfe.printStackTrace();
         }
     }
 
